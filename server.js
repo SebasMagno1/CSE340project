@@ -42,7 +42,7 @@ app.use(express.json());
 // Home route
 app.get('/', (req, res) => {
     const title = 'Home';
-    res.render('home', { title });
+    res.render('index', { title });
 });
 
 // Organizations route
