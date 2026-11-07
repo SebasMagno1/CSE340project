@@ -3,41 +3,29 @@ import express from 'express';
 import { fileURLToPath } from 'url';
 import path from 'path';
 
-// Define the application environment
+// Application environment
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'development';
 
-// Define the port number
+// Port configuration
 const PORT = process.env.PORT || 3000;
 
-// Get the current file directory
+// Get current directory
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Initialize Express
 const app = express();
 
-/**
- * Configure Express middleware
- */
-
-// Configure EJS as the view engine
+// Configure EJS
 app.set('view engine', 'ejs');
-
-// Define the views directory
 app.set('views', path.join(__dirname, 'views'));
 
-// Serve static files from the public directory
+// Static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Parse incoming form data
+// Middleware
 app.use(express.urlencoded({ extended: true }));
-
-// Parse incoming JSON data
 app.use(express.json());
-
-/**
- * Routes
- */
 
 // Home route
 app.get('/', (req, res) => {
@@ -57,10 +45,13 @@ app.get('/projects', (req, res) => {
     res.render('projects', { title });
 });
 
-/**
- * Start the server
- */
+// Categories route
+app.get('/categories', (req, res) => {
+    const title = 'Service Project Categories';
+    res.render('categories', { title });
+});
 
+// Start server
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
     console.log(`Environment: ${NODE_ENV}`);
