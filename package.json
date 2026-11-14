@@ -2,7 +2,9 @@
 {
   "name": "cse340-service-projects",
   "version": "1.0.0",
+  "description": "CSE340 Service Projects Application",
   "type": "module",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js"

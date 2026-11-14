@@ -1,58 +1,101 @@
 
+import 'dotenv/config';
+
 import express from 'express';
-import { fileURLToPath } from 'url';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-// Application environment
-const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'development';
+import { getAllOrganizations }
+    from './src/models/organizations.js';
 
-// Port configuration
+import { getAllProjects }
+    from './src/models/projects.js';
+
+import { getAllCategories }
+    from './src/models/categories.js';
+
 const PORT = process.env.PORT || 3000;
 
-// Get current directory
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Initialize Express
 const app = express();
 
-// Configure EJS
+// EJS configuration
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'src', 'views'));
 
-// Static files
-app.use(express.static(path.join(__dirname, 'public')));
+app.set(
+    'views',
+    path.join(__dirname, 'src', 'views')
+);
 
 // Middleware
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Home route
+// HOME ROUTE
 app.get('/', (req, res) => {
-    const title = 'Home';
-    res.render('index', { title });
+    res.render('index', {
+        title: 'Home'
+    });
 });
 
-// Organizations route
-app.get('/organizations', (req, res) => {
-    const title = 'Our Partner Organizations';
-    res.render('organizations', { title });
+// ORGANIZATIONS ROUTE
+app.get('/organizations', async (req, res, next) => {
+    try {
+        const organizations = await getAllOrganizations();
+
+        res.render('organizations', {
+            title: 'Our Partner Organizations',
+            organizations
+        });
+
+    } catch (error) {
+        next(error);
+    }
 });
 
-// Projects route
-app.get('/projects', (req, res) => {
-    const title = 'Service Projects';
-    res.render('projects', { title });
+// PROJECTS ROUTE
+app.get('/projects', async (req, res, next) => {
+    try {
+        const projects = await getAllProjects();
+
+        res.render('projects', {
+            title: 'Service Projects',
+            projects
+        });
+
+    } catch (error) {
+        next(error);
+    }
 });
 
-// Categories route
-app.get('/categories', (req, res) => {
-    const title = 'Service Project Categories';
-    res.render('categories', { title });
+// CATEGORIES ROUTE
+app.get('/categories', async (req, res, next) => {
+    try {
+        const categories = await getAllCategories();
+
+        res.render('categories', {
+            title: 'Service Project Categories',
+            categories
+        });
+
+    } catch (error) {
+        next(error);
+    }
 });
 
-// Start server
+// ERROR HANDLER
+app.use((error, req, res, next) => {
+    console.error('Application error:', error);
+
+    res.status(500).send(
+        'Sorry, something went wrong while loading this page.'
+    );
+});
+
+// START SERVER
 app.listen(PORT, () => {
-    console.log(`Server is running at http://localhost:${PORT}`);
-    console.log(`Environment: ${NODE_ENV}`);
+    console.log(`Server running on port ${PORT}`);
 });
