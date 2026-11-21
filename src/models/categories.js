@@ -1,7 +1,6 @@
-
 import pool from '../database/pool.js';
 
-// Get all service project categories
+// Get all service project categories.
 async function getAllCategories() {
     const sql = `
         SELECT
@@ -15,7 +14,7 @@ async function getAllCategories() {
     return result.rows;
 }
 
-// Get a single category by ID
+// Get a single category by ID.
 async function getCategoryById(categoryId) {
     const sql = `
         SELECT
@@ -29,7 +28,7 @@ async function getCategoryById(categoryId) {
     return result.rows[0];
 }
 
-// Get all categories assigned to a project
+// Get all categories assigned to a project.
 async function getCategoriesByProjectId(projectId) {
     const sql = `
         SELECT
@@ -46,7 +45,7 @@ async function getCategoriesByProjectId(projectId) {
     return result.rows;
 }
 
-// Get all projects assigned to a category
+// Get all projects assigned to a category.
 async function getProjectsByCategoryId(categoryId) {
     const sql = `
         SELECT

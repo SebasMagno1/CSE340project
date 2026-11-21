@@ -5,19 +5,10 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-import { getAllOrganizations }
-    from './src/models/organizations.js';
-
-import { getAllProjects }
-    from './src/models/projects.js';
-
-import { getAllCategories }
-    from './src/models/categories.js';
-
 
 import categoryRoute from './src/routes/categoryRoute.js';
 import projectRoute from './src/routes/projectRoute.js';
-    
+import organizationRoute from './src/routes/organizationRoute.js';
 
 const PORT = process.env.PORT || 3000;
 
@@ -26,81 +17,53 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-// EJS configuration
+// EJS configuration.
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'src', 'views'));
 
-app.set(
-    'views',
-    path.join(__dirname, 'src', 'views')
-);
-
-// Middleware
+// Middleware.
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// HOME ROUTE
+// Home page.
 app.get('/', (req, res) => {
     res.render('index', {
         title: 'Home'
     });
 });
 
-// ORGANIZATIONS ROUTE
-app.get('/organizations', async (req, res, next) => {
-    try {
-        const organizations = await getAllOrganizations();
+// Application routes.
+app.use('/organizations', organizationRoute);
+app.use('/organization', organizationRoute);
 
-        res.render('organizations', {
-            title: 'Our Partner Organizations',
-            organizations
-        });
+app.use('/projects', projectRoute);
+app.use('/project', projectRoute);
 
-    } catch (error) {
-        next(error);
-    }
+app.use('/categories', categoryRoute);
+app.use('/category', categoryRoute);
+
+// 404 handler.
+app.use((req, res) => {
+    res.status(404).render('errors/404', {
+        title: 'Page Not Found'
+    });
 });
 
-// PROJECTS ROUTE
-app.get('/projects', async (req, res, next) => {
-    try {
-        const projects = await getAllProjects();
-
-        res.render('projects', {
-            title: 'Service Projects',
-            projects
-        });
-
-    } catch (error) {
-        next(error);
-    }
-});
-
-// CATEGORIES ROUTE
-app.get('/categories', async (req, res, next) => {
-    try {
-        const categories = await getAllCategories();
-
-        res.render('categories', {
-            title: 'Service Project Categories',
-            categories
-        });
-
-    } catch (error) {
-        next(error);
-    }
-});
-
-// ERROR HANDLER
+// Centralized 500 error handler.
 app.use((error, req, res, next) => {
     console.error('Application error:', error);
 
-    res.status(500).send(
-        'Sorry, something went wrong while loading this page.'
-    );
+    if (res.headersSent) {
+        return next(error);
+    }
+
+    res.status(500).render('errors/500', {
+        title: 'Server Error'
+    });
 });
 
-// START SERVER
+// Start server.
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });

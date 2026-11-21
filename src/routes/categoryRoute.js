@@ -8,10 +8,10 @@ import {
 
 const router = express.Router();
 
-// GET /categories
+
 router.get('/', buildCategoryList);
 
-// GET /category/:id
+
 router.get('/:id', buildCategoryDetail);
 
 export default router;

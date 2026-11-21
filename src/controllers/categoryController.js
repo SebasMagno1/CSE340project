@@ -5,7 +5,7 @@ import {
     getProjectsByCategoryId
 } from '../models/categories.js';
 
-// Display all categories
+// Display all categories.
 async function buildCategoryList(req, res, next) {
     try {
         const categories = await getAllCategories();
@@ -19,7 +19,7 @@ async function buildCategoryList(req, res, next) {
     }
 }
 
-// Display category details
+// Display one category and its projects.
 async function buildCategoryDetail(req, res, next) {
     try {
         const categoryId = Number(req.params.id);
@@ -40,7 +40,7 @@ async function buildCategoryDetail(req, res, next) {
 
         const projects = await getProjectsByCategoryId(categoryId);
 
-        res.render('category/detail', {
+        return res.render('category/detail', {
             title: category.category_name,
             category,
             projects

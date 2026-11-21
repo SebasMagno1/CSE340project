@@ -1,0 +1,86 @@
+<%- include('../partials/header') %>
+
+<main class="container main-content">
+
+    <section class="page-intro">
+
+        <p class="eyebrow">PARTNER ORGANIZATION</p>
+
+        <% if (organization.organization_logo) { %>
+
+            <img
+                src="<%= organization.organization_logo %>"
+                alt="<%= organization.organization_name %> logo"
+                loading="lazy"
+            >
+
+        <% } %>
+
+        <h1><%= organization.organization_name %></h1>
+
+        <p><%= organization.organization_description %></p>
+
+        <% if (organization.organization_email) { %>
+
+            <p>
+                <strong>Email:</strong>
+
+                <a href="mailto:<%= organization.organization_email %>">
+                    <%= organization.organization_email %>
+                </a>
+            </p>
+
+        <% } %>
+
+        <a href="/organizations" class="text-link">
+            ← Back to Organizations
+        </a>
+
+    </section>
+
+    <section class="project-grid">
+
+        <h2>Service Projects</h2>
+
+        <% if (projects && projects.length > 0) { %>
+
+            <% projects.forEach((project) => { %>
+
+                <article class="project-card">
+
+                    <h3>
+                        <a href="/project/<%= project.project_id %>">
+                            <%= project.project_name %>
+                        </a>
+                    </h3>
+
+                    <p><%= project.project_description %></p>
+
+                    <p>
+                        <strong>Date:</strong>
+
+                        <%= project.date
+                            ? new Date(project.date).toLocaleDateString()
+                            : 'To be announced' %>
+                    </p>
+
+                    <p>
+                        <strong>Location:</strong>
+                        <%= project.location || 'To be announced' %>
+                    </p>
+
+                </article>
+
+            <% }) %>
+
+        <% } else { %>
+
+            <p>This organization does not have any projects yet.</p>
+
+        <% } %>
+
+    </section>
+
+</main>
+
+<%- include('../partials/footer') %>

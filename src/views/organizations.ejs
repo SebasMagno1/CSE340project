@@ -1,4 +1,3 @@
-
 <%- include('partials/header') %>
 
 <main class="container main-content">
@@ -8,7 +7,10 @@
 
         <h1><%= title %></h1>
 
-        <p>Here are our partner organizations:</p>
+        <p>
+            Meet the organizations creating meaningful
+            service opportunities.
+        </p>
     </section>
 
     <section class="organization-grid">
@@ -20,15 +22,19 @@
                 <article class="organization-card">
 
                     <% if (organization.organization_logo) { %>
+
                         <img
                             src="<%= organization.organization_logo %>"
                             alt="<%= organization.organization_name %> logo"
                             loading="lazy"
                         >
+
                     <% } %>
 
                     <h2>
-                        <%= organization.organization_name %>
+                        <a href="/organization/<%= organization.organization_id %>">
+                            <%= organization.organization_name %>
+                        </a>
                     </h2>
 
                     <p>
@@ -36,10 +42,19 @@
                     </p>
 
                     <% if (organization.organization_email) { %>
+
                         <a href="mailto:<%= organization.organization_email %>">
                             <%= organization.organization_email %>
                         </a>
+
                     <% } %>
+
+                    <p>
+                        <a class="text-link"
+                           href="/organization/<%= organization.organization_id %>">
+                            View organization →
+                        </a>
+                    </p>
 
                 </article>
 
