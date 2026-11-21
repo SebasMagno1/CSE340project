@@ -14,6 +14,11 @@ import { getAllProjects }
 import { getAllCategories }
     from './src/models/categories.js';
 
+
+import categoryRoute from './src/routes/categoryRoute.js';
+import projectRoute from './src/routes/projectRoute.js';
+    
+
 const PORT = process.env.PORT || 3000;
 
 const __filename = fileURLToPath(import.meta.url);

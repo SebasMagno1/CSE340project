@@ -4,7 +4,6 @@
 <main class="container main-content">
 
     <section class="page-intro">
-
         <p class="eyebrow">EXPLORE OPPORTUNITIES</p>
 
         <h1><%= title %></h1>
@@ -13,7 +12,6 @@
             Explore our service project categories
             and discover different ways to make a difference.
         </p>
-
     </section>
 
     <section class="category-grid">
@@ -29,8 +27,18 @@
                     </div>
 
                     <h2>
-                        <%= category.category_name %>
+                        <a href="/category/<%= category.category_id %>">
+                            <%= category.category_name %>
+                        </a>
                     </h2>
+
+                    <a
+                        class="text-link"
+                        href="/category/<%= category.category_id %>"
+                        aria-label="Explore <%= category.category_name %> projects"
+                    >
+                        Explore projects →
+                    </a>
 
                 </article>
 

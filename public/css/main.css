@@ -468,3 +468,74 @@ p {
         animation-iteration-count: 1 !important;
     }
 }
+
+
+/* Category cards */
+.category-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.category-card h2 a,
+.project-card h2 a {
+    color: #1e293b;
+    text-decoration: none;
+}
+
+.category-card h2 a:hover,
+.project-card h2 a:hover {
+    color: #2563eb;
+    text-decoration: underline;
+}
+
+.text-link {
+    display: inline-block;
+    color: #2563eb;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    text-decoration: none;
+}
+
+.text-link:hover {
+    text-decoration: underline;
+}
+
+.category-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.category-tag {
+    display: inline-block;
+    background: #eff6ff;
+    color: #1d4ed8;
+    border: 1px solid #bfdbfe;
+    border-radius: 999px;
+    padding: 0.45rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.category-tag:hover {
+    background: #dbeafe;
+    text-decoration: underline;
+}
+
+.category-tag:focus-visible,
+.text-link:focus-visible,
+.category-card a:focus-visible {
+    outline: 3px solid #2563eb;
+    outline-offset: 4px;
+}

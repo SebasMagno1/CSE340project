@@ -1,0 +1,100 @@
+
+<%- include('partials/header') %>
+
+<main class="container main-content">
+
+    <section class="page-intro">
+
+        <p class="eyebrow">SERVICE CATEGORY</p>
+
+        <h1><%= category.category_name %></h1>
+
+        <p>
+            Explore service opportunities available
+            in this category.
+        </p>
+
+        <a href="/categories" class="text-link">
+            ← Back to Categories
+        </a>
+
+    </section>
+
+    <section class="project-grid">
+
+        <% if (projects && projects.length > 0) { %>
+
+            <% projects.forEach((project) => { %>
+
+                <article class="project-card">
+
+                    <h2>
+                        <a href="/project/<%= project.project_id %>">
+                            <%= project.project_name %>
+                        </a>
+                    </h2>
+
+                    <p>
+                        <%= project.project_description %>
+                    </p>
+
+                    <p>
+                        <strong>Organization:</strong>
+                        <%= project.organization_name %>
+                    </p>
+
+                    <a
+                        href="/project/<%= project.project_id %>"
+                        class="text-link"
+                    >
+                        View project →
+                    </a>
+
+                </article>
+
+            <% }) %>
+
+        <% } else { %>
+
+            <p>
+                There are currently no projects in this category.
+            </p>
+
+        <% } %>
+
+    </section>
+
+</main>
+
+
+<section class="project-categories">
+
+    <h2>Project Categories</h2>
+
+    <% if (categories && categories.length > 0) { %>
+
+        <div class="category-tags">
+
+            <% categories.forEach((category) => { %>
+
+                <a
+                    href="/category/<%= category.category_id %>"
+                    class="category-tag"
+                >
+                    <%= category.category_name %>
+                </a>
+
+            <% }) %>
+
+        </div>
+
+    <% } else { %>
+
+        <p>No categories assigned to this project.</p>
+
+    <% } %>
+
+</section>
+
+
+<%- include('partials/footer') %>
