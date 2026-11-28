@@ -1,0 +1,4 @@
+<%- include('../partials/header') %><main class="container main-content"><h1>Assign Categories: <%= project.project_name %></h1>
+<%- include('../partials/messages') %><form method="POST" action="/assign-categories/<%= project.project_id %>" class="data-form">
+<% categories.forEach(c=>{ %><label><input type="checkbox" name="category_ids" value="<%= c.category_id %>" <%= assigned.includes(c.category_id)?'checked':'' %>> <%= c.category_name %></label><% }) %>
+<button type="submit">Save category assignments</button><a href="/project/<%= project.project_id %>">Cancel</a></form></main><%- include('../partials/footer') %>

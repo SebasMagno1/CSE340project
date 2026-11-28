@@ -1,0 +1,3 @@
+<% if (messages && Object.keys(messages).length) { Object.entries(messages).forEach(([type,items]) => items.forEach(message => { %>
+  <div class="flash-message <%= type %>" role="status"><%= message %></div>
+<% })) } %>

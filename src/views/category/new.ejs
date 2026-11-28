@@ -1,0 +1,3 @@
+<%- include('../partials/header') %><main class="container main-content"><h1>New Category</h1>
+<%- include('../partials/messages') %><% if(errors.length){ %><ul class="form-errors"><% errors.forEach(e=>{ %><li><%= e %></li><% }) %></ul><% } %>
+<form method="POST" action="/new-category" class="data-form"><label for="category_name">Category name</label><input id="category_name" name="category_name" value="<%= category.category_name || '' %>" required maxlength="100"><button type="submit">Create category</button><a href="/categories">Cancel</a></form></main><%- include('../partials/footer') %>

@@ -1,4 +1,3 @@
-
 DROP TABLE IF EXISTS project_categories CASCADE;
 DROP TABLE IF EXISTS projects CASCADE;
 DROP TABLE IF EXISTS categories CASCADE;
@@ -168,3 +167,4 @@ JOIN projects p
     ON pc.project_id = p.project_id
 JOIN categories c
     ON pc.category_id = c.category_id;
+    

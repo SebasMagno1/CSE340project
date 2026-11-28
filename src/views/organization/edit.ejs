@@ -1,0 +1,16 @@
+<%- include('../partials/header') %>
+<main class="container main-content">
+<h1>Edit Organization</h1>
+<%- include('../partials/messages') %>
+<% if (errors.length) { %><ul class="form-errors"><% errors.forEach(error => { %><li><%= error %></li><% }) %></ul><% } %>
+<form method="POST" action="/edit-organization/<%= organization.organization_id %>" class="data-form">
+<label for="organization_name">Organization name</label>
+<input id="organization_name" name="organization_name" value="<%= organization.organization_name || '' %>" required minlength="3" maxlength="100">
+<label for="organization_description">Description</label>
+<textarea id="organization_description" name="organization_description" required minlength="3" maxlength="1000"><%= organization.organization_description || '' %></textarea>
+<label for="organization_email">Email (optional)</label>
+<input type="email" id="organization_email" name="organization_email" value="<%= organization.organization_email || '' %>" maxlength="255">
+<button type="submit">Save organization</button>
+<a href="/organizations">Cancel</a>
+</form></main>
+<%- include('../partials/footer') %>

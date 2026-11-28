@@ -1,0 +1,12 @@
+<%- include('../partials/header') %>
+<main class="container main-content"><h1>Edit Service Project</h1>
+<%- include('../partials/messages') %>
+<% if (errors.length) { %><ul class="form-errors"><% errors.forEach(error => { %><li><%= error %></li><% }) %></ul><% } %>
+<form method="POST" action="/edit-project/<%= project.project_id %>" class="data-form">
+<label for="project_name">Project name</label><input id="project_name" name="project_name" value="<%= project.project_name || '' %>" required minlength="3" maxlength="120">
+<label for="project_description">Description</label><textarea id="project_description" name="project_description" required minlength="3" maxlength="2000"><%= project.project_description || '' %></textarea>
+<label for="project_location">Location</label><input id="project_location" name="project_location" value="<%= project.project_location || project.location || '' %>" required minlength="2" maxlength="150">
+<label for="project_date">Date</label><input type="date" id="project_date" name="project_date" value="<%= project.project_date ? new Date(project.project_date).toISOString().slice(0,10) : (project.date ? new Date(project.date).toISOString().slice(0,10) : '') %>" required>
+<label for="organization_id">Organization</label><select id="organization_id" name="organization_id" required><option value="">Choose organization</option><% organizations.forEach(o => { %><option value="<%= o.organization_id %>" <%= Number(project.organization_id)===o.organization_id?'selected':'' %>><%= o.organization_name %></option><% }) %></select>
+<button type="submit">Save project</button><a href="/projects">Cancel</a></form></main>
+<%- include('../partials/footer') %>

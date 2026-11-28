@@ -1,0 +1,3 @@
+<%- include('../partials/header') %><main class="container main-content"><h1>Edit Category</h1>
+<%- include('../partials/messages') %><% if(errors.length){ %><ul class="form-errors"><% errors.forEach(e=>{ %><li><%= e %></li><% }) %></ul><% } %>
+<form method="POST" action="/edit-category/<%= category.category_id %>" class="data-form"><label for="category_name">Category name</label><input id="category_name" name="category_name" value="<%= category.category_name || '' %>" required maxlength="100"><button type="submit">Update category</button><a href="/category/<%= category.category_id %>">Cancel</a></form></main><%- include('../partials/footer') %>
